@@ -6,6 +6,12 @@ variable "timezone" {
   default = "Asia/Taipei"
 }
 
+variable "environment" {
+  type        = "string"
+  default     = "staging" # production / staging
+  description = "貼在主機上的 environment tag"
+}
+
 variable "username" {
   type        = "string"
   default     = "ubuntu"
@@ -33,10 +39,9 @@ variable "machines" {
   description = "主機屬性列表，每組 {} 內定義主機各個屬性"
   default = {
     vm_name = {
-      vm_size     = "Standard_B1S" # https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#Linux
-      subnet      = ""
-      ip          = ""
-      environment = "" # proudction / staging
+      vm_size = "Standard_B1S" # https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#Linux
+      subnet  = ""
+      ip      = ""
     }
   }
 }
