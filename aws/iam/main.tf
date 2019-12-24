@@ -29,6 +29,10 @@ resource "aws_iam_user_login_profile" "_user_passwords" {
   for_each = var.users
   pgp_key  = var.pgp_key
   user     = each.key
+
+  depends_on = [
+    aws_iam_user._users,
+  ]
 }
 
 ### Policies
