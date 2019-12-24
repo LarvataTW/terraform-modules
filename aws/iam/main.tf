@@ -32,6 +32,6 @@ resource "aws_iam_policy" "_policies" {
 
 resource "aws_iam_policy_attachment" "_policy_teams" {
   for_each   = var.policies
-  policy_arn = data.aws_iam_policy.created_policies[each.key].arn
+  policy_arn = aws_iam_policy._policies[each.key].arn
   group      = each.value.group
 }
