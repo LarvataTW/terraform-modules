@@ -25,3 +25,20 @@ variable "users" {
     }
   }
 }
+
+variable "policies_path" {
+  type    = string
+  default = "/policies/"
+}
+
+variable "policies" {
+  type        = map
+  description = "AWS IAM Policy 配置"
+  default = {
+    policy_name = {
+      policy_file = "Policy 的 JSON 檔案路徑"
+      description = "Policy 描述"
+      group       = "Policy 所屬於的 IAM Group"
+    }
+  }
+}
