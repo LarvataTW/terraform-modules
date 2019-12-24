@@ -27,7 +27,7 @@ resource "aws_iam_policy" "_policies" {
   path        = var.policies_path
   name        = each.key
   description = each.value.description
-  policy      = file("${each.value.policy_file}")
+  policy      = each.value.policy_json
 }
 
 resource "aws_iam_policy_attachment" "_policy_teams" {
