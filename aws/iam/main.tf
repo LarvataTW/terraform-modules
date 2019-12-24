@@ -34,4 +34,5 @@ resource "aws_iam_policy_attachment" "_policy_teams" {
   for_each   = var.policies
   policy_arn = aws_iam_policy._policies[each.key].arn
   group      = each.value.group
+  name       = "attachment_${each.key}"
 }
