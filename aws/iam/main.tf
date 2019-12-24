@@ -19,3 +19,19 @@ resource "aws_iam_user_group_membership" "_user_teams" {
   user     = each.key
   groups   = [each.value.group]
 }
+
+### Policies
+
+resource "aws_iam_policy" "_policies" {
+  for_each    = var.policies
+  path        = var.policies_path
+  name        = each.key
+  description = each.value.description
+  policy      = file("${each.value.policy_file}")
+}
+
+resource "aws_iam_policy_attachment" "_policy_teams" {
+  for_each   = var.policies
+  policy_arn = data.aws_iam_policy.created_policies[each.key].arn
+  group      = each.value.group
+}
