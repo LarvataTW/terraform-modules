@@ -51,6 +51,6 @@ resource "azurerm_virtual_machine" "machine" {
     disable_password_authentication = false
   }
   tags = {
-    environment = "${each.value.environment}"
+    environment = "${var.environment}"
   }
 }
