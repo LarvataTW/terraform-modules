@@ -27,7 +27,7 @@ resource "aws_iam_user_group_membership" "_user_teams" {
 
 resource "aws_iam_user_login_profile" "_user_passwords" {
   for_each = var.users
-  pgp_key  = var.gpg_key
+  pgp_key  = var.pgp_key
   user     = each.key
 }
 

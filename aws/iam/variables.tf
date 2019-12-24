@@ -43,7 +43,7 @@ variable "policies" {
   }
 }
 
-variable "gpg_key" {
+variable "pgp_key" {
   type    = string
   default = "keybase:some_person_that_exists"
 }
