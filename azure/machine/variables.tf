@@ -42,6 +42,17 @@ variable "machines" {
       vm_size = "Standard_B1S" # https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#Linux
       subnet  = ""
       ip      = ""
+      disks   = {}
+      #disks = {
+      #  "datadisk0" = {
+      #    lun  = 0
+      #    size = "50" # GB，設定為 0 則不新增資料硬碟
+      #  }
+      #  "datadisk1" = {
+      #    lun  = 1
+      #    size = "100" # GB，設定為 0 則不新增資料硬碟
+      #  }
+      #}
     }
   }
 }

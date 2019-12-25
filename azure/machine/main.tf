@@ -37,10 +37,20 @@ resource "azurerm_virtual_machine" "machine" {
     version   = "${var.os.version}"
   }
   storage_os_disk {
-    name              = "vmdisk0"
+    name              = "osdisk0"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
+  }
+  dynamic "storage_data_disk" {
+    for_each = each.value.disks
+    content {
+      name              = "${each.key}"
+      create_option     = "Empty"
+      managed_disk_type = "Standard_LRS"
+      lun               = "${each.value.lun}"
+      disk_size_gb      = "${each.value.size}"
+    }
   }
   os_profile {
     computer_name  = "${each.key}"
