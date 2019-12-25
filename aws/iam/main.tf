@@ -33,6 +33,10 @@ resource "aws_iam_user_login_profile" "_user_passwords" {
   depends_on = [
     aws_iam_user._users,
   ]
+
+  lifecycle {
+    ignore_changes = ["password_length", "password_reset_required", "pgp_key"]
+  }
 }
 
 ### Policies
