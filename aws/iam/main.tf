@@ -12,6 +12,10 @@ resource "aws_iam_user" "_users" {
   for_each = var.users
   path     = var.users_path
   name     = each.key
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_iam_user_group_membership" "_user_teams" {
@@ -35,7 +39,11 @@ resource "aws_iam_user_login_profile" "_user_passwords" {
   ]
 
   lifecycle {
-    ignore_changes = ["password_length", "password_reset_required", "pgp_key"]
+    ignore_changes = [
+      password_length,
+      password_reset_required,
+      pgp_key
+    ]
   }
 }
 
