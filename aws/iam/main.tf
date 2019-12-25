@@ -25,6 +25,24 @@ resource "aws_iam_user_group_membership" "_user_teams" {
   ]
 }
 
+resource "aws_iam_user_login_profile" "_user_passwords" {
+  for_each = var.users
+  pgp_key  = var.pgp_key
+  user     = each.key
+
+  depends_on = [
+    aws_iam_user._users,
+  ]
+
+  lifecycle {
+    ignore_changes = [
+      password_length,
+      password_reset_required,
+      pgp_key
+    ]
+  }
+}
+
 ### Policies
 
 resource "aws_iam_policy" "_policies" {

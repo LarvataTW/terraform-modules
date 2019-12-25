@@ -42,3 +42,8 @@ variable "policies" {
     }
   }
 }
+
+variable "pgp_key" {
+  type    = string
+  default = "keybase:some_person_that_exists"
+}
