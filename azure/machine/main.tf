@@ -44,15 +44,12 @@ resource "azurerm_virtual_machine" "machine" {
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
-  dynamic "storage_data_disk" {
-    for_each = each.value.disks
-    content {
-      name              = "${each.key}"
-      create_option     = "Empty"
-      managed_disk_type = "Standard_LRS"
-      lun               = "${each.value.lun}"
-      disk_size_gb      = "${each.value.size}"
-    }
+  storage_data_disk {
+    name              = "${each.key}datadisk0"
+    create_option     = "Empty"
+    managed_disk_type = "Standard_LRS"
+    lun               = 0
+    disk_size_gb      = "${each.value.disk_size}"
   }
   os_profile {
     computer_name  = "${each.key}"
