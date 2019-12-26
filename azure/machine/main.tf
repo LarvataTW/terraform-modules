@@ -5,6 +5,7 @@ resource "azurerm_network_interface" "az_network_interfaces" {
   name                = "${each.key}-nic"
   location            = "${data.az_resource_group.location}"
   resource_group_name = "${data.az_resource_group.name}"
+  depends_on          = ["data.azurerm_subnet.az_subnets"]
 
   ip_configuration {
     name                          = "${each.key}-ip"
