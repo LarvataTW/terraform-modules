@@ -25,7 +25,7 @@ variable "password" {
 }
 
 variable "os" {
-  type = "set"
+  type = "map"
   default = {
     publisher = "Canonical"
     offer     = "UbuntuServer"
