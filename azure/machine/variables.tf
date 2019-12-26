@@ -1,6 +1,5 @@
 variable "az_resource_group" {}
 variable "az_network" {}
-variable "az_subnets" {}
 
 variable "timezone" {
   default = "Asia/Taipei"

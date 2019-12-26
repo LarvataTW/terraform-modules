@@ -3,13 +3,13 @@
 resource "azurerm_network_interface" "az_network_interfaces" {
   for_each            = "${var.machines}"
   name                = "${each.key}-nic"
-  location            = "${data.az_resource_group.location}"
-  resource_group_name = "${data.az_resource_group.name}"
-  depends_on          = [data.az_subnets]
+  location            = "${data.azurerm_resource_group.az_resource_group.location}"
+  resource_group_name = "${data.azurerm_resource_group.az_resource_group.name}"
+  depends_on          = [data.azurerm_subnet.az_subnets]
 
   ip_configuration {
     name                          = "${each.key}-ip"
-    subnet_id                     = "${data.az_subnets[each.key].id}"
+    subnet_id                     = "${data.azurerm_subnet.az_subnets[each.key].id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${each.value.ip}"
   }
@@ -21,8 +21,8 @@ resource "azurerm_virtual_machine" "machine" {
   for_each              = "${var.machines}"
   name                  = "${each.key}"
   vm_size               = "${each.value.vm_size}"
-  location              = "${data.az_resource_group.location}"
-  resource_group_name   = "${data.az_resource_group.name}"
+  location              = "${data.azurerm_resource_group.az_resource_group.location}"
+  resource_group_name   = "${data.azurerm_resource_group.az_resource_group.name}"
   network_interface_ids = ["${azurerm_network_interface.az_network_interfaces[each.key].id}"]
   depends_on            = [azurerm_network_interface.az_network_interfaces]
 
