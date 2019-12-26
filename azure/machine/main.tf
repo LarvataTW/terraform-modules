@@ -5,7 +5,7 @@ resource "azurerm_network_interface" "az_network_interfaces" {
   name                = "${each.key}-nic"
   location            = "${data.az_resource_group.location}"
   resource_group_name = "${data.az_resource_group.name}"
-  depends_on          = ["data.azurerm_subnet.az_subnets"]
+  depends_on          = ["data.az_subnets"]
 
   ip_configuration {
     name                          = "${each.key}-ip"
@@ -23,7 +23,8 @@ resource "azurerm_virtual_machine" "machine" {
   vm_size               = "${each.value.vm_size}"
   location              = "${data.az_resource_group.location}"
   resource_group_name   = "${data.az_resource_group.name}"
-  network_interface_ids = ["${data.az_network_interfaces[each.key].id}"]
+  network_interface_ids = ["${azurerm_network_interface.az_network_interfaces[each.key].id}"]
+  depends_on            = ["azurerm_network_interface.az_network_interfaces"]
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   # delete_os_disk_on_termination = true
