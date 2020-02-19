@@ -39,7 +39,7 @@ resource "azurerm_virtual_machine" "machine" {
     version   = "${var.os.version}"
   }
   storage_os_disk {
-    name              = "osdisk0"
+    name              = "${each.key}osdisk0"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
