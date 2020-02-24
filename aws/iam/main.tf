@@ -17,7 +17,7 @@ resource "aws_iam_user" "_users" {
 resource "aws_iam_user_group_membership" "_user_teams" {
   for_each = var.users
   user     = each.key
-  groups   = [each.value.group]
+  groups   = split(", ", each.value.group)
 
   depends_on = [
     aws_iam_group._groups,
