@@ -55,13 +55,3 @@ resource "vsphere_virtual_machine" "virtual_machine" {
     }
   }
 }
-
-### DNS Records
-
-resource "dns_a_record_set" "record" {
-  for_each  = var.machines
-  name      = each.key
-  zone      = "${each.value.domain}."
-  addresses = [each.value.ip]
-  ttl       = 300
-}
