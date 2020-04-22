@@ -32,34 +32,39 @@ resource "azurerm_virtual_machine" "machine" {
   # Uncomment this line to delete the data disks automatically when deleting the VM
   # delete_data_disks_on_termination = true
 
+  os_profile {
+    computer_name  = "${each.key}"
+    admin_username = "${var.username}"
+    admin_password = "${var.password}"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = false
+  }
+
+  tags = {
+    environment = "${var.environment}"
+  }
+
   storage_image_reference {
     publisher = "${var.os.publisher}"
     offer     = "${var.os.offer}"
     sku       = "${var.os.sku}"
     version   = "${var.os.version}"
   }
+
   storage_os_disk {
     name              = "${each.key}osdisk0"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
+
   storage_data_disk {
     name              = "${each.key}datadisk0"
     create_option     = "Empty"
     managed_disk_type = "Standard_LRS"
     lun               = 0
     disk_size_gb      = "${each.value.disk_size}"
-  }
-  os_profile {
-    computer_name  = "${each.key}"
-    admin_username = "${var.username}"
-    admin_password = "${var.password}"
-  }
-  os_profile_linux_config {
-    disable_password_authentication = false
-  }
-  tags = {
-    environment = "${var.environment}"
   }
 }
