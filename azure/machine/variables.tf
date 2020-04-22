@@ -48,7 +48,7 @@ variable "machines" {
       vm_size   = "Standard_B1S" # https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#Linux
       subnet    = ""
       ip        = ""
-      disk_size = 1 # GB
+      disk_size = 1 # GB for storage data disk
     }
   }
 }

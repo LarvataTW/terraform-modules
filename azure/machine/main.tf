@@ -60,11 +60,14 @@ resource "azurerm_virtual_machine" "machine" {
     managed_disk_type = "Standard_LRS"
   }
 
-  storage_data_disk {
-    name              = "${each.key}datadisk0"
-    create_option     = "Empty"
-    managed_disk_type = "Standard_LRS"
-    lun               = 0
-    disk_size_gb      = "${each.value.disk_size}"
+  dynamic "storage_data_disk" {
+    for_each = each.value.disk_size > 0 ? [each.value.disk_size] : []
+    content {
+      name              = "${each.key}datadisk0"
+      create_option     = "Empty"
+      managed_disk_type = "StandardSSD_LRS"
+      lun               = 0
+      disk_size_gb      = "${each.value.disk_size}"
+    }
   }
 }
