@@ -54,7 +54,7 @@ resource "azurerm_virtual_machine" "machine" {
   }
 
   storage_os_disk {
-    name              = "${each.key}osdisk0"
+    name              = "${each.key}-os-disk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
@@ -63,9 +63,9 @@ resource "azurerm_virtual_machine" "machine" {
   dynamic "storage_data_disk" {
     for_each = each.value.disk_size > 0 ? [each.value.disk_size] : []
     content {
-      name              = "${each.key}datadisk0"
+      name              = "${each.key}-data-disk"
       create_option     = "Empty"
-      managed_disk_type = "StandardSSD_LRS"
+      managed_disk_type = "Standard_LRS"
       lun               = 0
       disk_size_gb      = "${each.value.disk_size}"
     }
