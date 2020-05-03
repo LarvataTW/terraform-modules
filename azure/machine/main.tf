@@ -42,7 +42,7 @@ resource "azurerm_virtual_machine" "machine" {
     disable_password_authentication = false
 
     dynamic ssh_keys {
-      for_each = var.ssh_key_file ? [var.ssh_key_file] : []
+      for_each = var.ssh_key_file != "" ? [var.ssh_key_file] : []
       content {
         path     = "/home/${var.username}/.ssh/authorized_keys"
         key_data = file(var.ssh_key_file)
