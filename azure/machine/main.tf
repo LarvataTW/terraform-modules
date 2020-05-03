@@ -40,6 +40,14 @@ resource "azurerm_virtual_machine" "machine" {
 
   os_profile_linux_config {
     disable_password_authentication = false
+
+    dynamic ssh_keys {
+      for_each = var.ssh_key_file ? [var.ssh_key_file] : []
+      content {
+        path     = "/home/${var.username}/.ssh/authorized_keys"
+        key_data = file(var.ssh_key_file)
+      }
+    }
   }
 
   tags = {
@@ -61,7 +69,7 @@ resource "azurerm_virtual_machine" "machine" {
     disk_size_gb      = "${each.value.os_disk_size}"
   }
 
-  dynamic "storage_data_disk" {
+  dynamic storage_data_disk {
     for_each = each.value.disk_size > 0 ? [each.value.disk_size] : []
     content {
       lun               = 0
