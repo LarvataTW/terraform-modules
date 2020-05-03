@@ -70,7 +70,7 @@ resource "azurerm_virtual_machine" "machine" {
   }
 
   dynamic storage_data_disk {
-    for_each = each.value.disk_size > 0 ? [each.value.disk_size] : []
+    for_each = each.value.data_disk_size > 0 ? [each.value.data_disk_size] : []
     content {
       lun               = 0
       name              = "${each.key}-data-disk"
