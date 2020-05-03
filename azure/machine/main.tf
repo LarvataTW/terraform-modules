@@ -12,6 +12,7 @@ resource "azurerm_network_interface" "az_network_interfaces" {
     subnet_id                     = "${data.azurerm_subnet.az_subnets[each.key].id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${each.value.ip}"
+    public_ip_address_id          = "${each.value.public_ip_address_id != "" ? each.value.public_ip_address_id : null}"
   }
 }
 

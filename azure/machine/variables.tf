@@ -50,13 +50,14 @@ variable "machines" {
   description = "主機屬性列表，每組 {} 內定義主機各個屬性"
   default = {
     vm_name = {
-      vm_size        = "Standard_B1S" # https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#Linux
-      subnet         = ""
-      ip             = ""
-      os_disk_size   = 50 # GB for root disk
-      os_disk_type   = "Standard_LRS"
-      data_disk_size = 0 # GB for extra storage data disk
-      data_disk_type = "Standard_LRS"
+      vm_size              = "Standard_B1S" # https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#Linux
+      subnet               = ""
+      ip                   = ""
+      public_ip_address_id = null
+      os_disk_size         = 50 # GB for root disk
+      os_disk_type         = "Standard_LRS"
+      data_disk_size       = 0 # GB for extra storage data disk
+      data_disk_type       = "Standard_LRS"
     }
   }
 }
