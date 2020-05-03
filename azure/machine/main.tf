@@ -66,8 +66,8 @@ resource "azurerm_virtual_machine" "machine" {
     name              = "${each.key}-root-disk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
-    managed_disk_type = "${each.value.os_disk_type}"
-    disk_size_gb      = "${each.value.os_disk_size}"
+    managed_disk_type = "${each.value.root_disk_type}"
+    disk_size_gb      = "${each.value.root_disk_size}"
   }
 
   dynamic storage_data_disk {

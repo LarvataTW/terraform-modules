@@ -54,8 +54,8 @@ variable "machines" {
       subnet               = ""
       ip                   = ""
       public_ip_address_id = null
-      os_disk_size         = 50 # GB for root disk
-      os_disk_type         = "Standard_LRS"
+      root_disk_size       = 50 # GB for root disk
+      root_disk_type       = "Standard_LRS"
       data_disk_size       = 0 # GB for extra storage data disk
       data_disk_type       = "Standard_LRS"
     }
