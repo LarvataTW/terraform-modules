@@ -1,35 +1,28 @@
 {
   "class": "AS3",
-  "action": "${as3_action}",
+  "action": ${as3_action},
   "persist": true,
   "declaration": {
-
     "class": "ADC",
     "schemaVersion": "3.0.0",
-
-    "id": "${as3_id}",
-    "label": "${as3_label}",
-    "remark": "${as3_remark}",
+    "id": ${as3_id},
+    "label": ${as3_label},
+    "remark": ${as3_remark},
     "updateMode": "selective",
-
     ${tenant_name}: {
       "class": "Tenant",
       "defaultRouteDomain": 0,
-
-      "${as3_application_name}": {
-
+      ${as3_application_name}: {
         "class": "Application",
-        "template": "${as3_application_template}",
-
+        "template": ${as3_application_template},
         "serviceMain": {
-          "class": "${as3_service_class}",
-          "pool": "${pool_name}",
+          "class": ${as3_service_class},
+          "pool": ${pool_name},
           "virtualAddresses": ${virtual_addresses}
         },
-
-        "${pool_name}": {
+        ${pool_name}: {
           "class": "Pool",
-          "loadBalancingMode": "${pool_mode}",
+          "loadBalancingMode": ${pool_mode},
           "monitors": [
             "icmp",
             "http"
@@ -41,9 +34,7 @@
             }
           ]
         }
-
       }
     }
-
   }
 }
