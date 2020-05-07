@@ -2,7 +2,7 @@
 
 resource "bigip_ltm_node" "nodes" {
   for_each         = var.nodes
-  name             = "/${tenant_name}/${each.key}"
+  name             = "/${var.tenant_name}/${each.key}"
   address          = "${each.value.address}"
   description      = "${each.value.description}"
   connection_limit = "0"
@@ -17,7 +17,7 @@ resource "bigip_ltm_node" "nodes" {
 ### Pool
 
 resource "bigip_ltm_pool" "pool" {
-  name                = "/${tenant_name}/${var.pool_name}"
+  name                = "/${var.tenant_name}/${var.pool_name}"
   load_balancing_mode = "${var.pool_mode}"
   description         = "${var.pool_description}"
   monitors            = ["/Common/gateway_icmp"]
@@ -30,7 +30,7 @@ resource "bigip_ltm_pool" "pool" {
 resource "bigip_ltm_pool_attachment" "node-pool-attach" {
   for_each = var.nodes
   pool     = bigip_ltm_pool.pool.name
-  node     = "/${tenant_name}/${each.key}:${each.value.port}"
+  node     = "/${var.tenant_name}/${each.key}:${each.value.port}"
   depends_on = [
     bigip_ltm_node.nodes,
     bigip_ltm_pool.pool
