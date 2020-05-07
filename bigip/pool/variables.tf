@@ -1,3 +1,9 @@
+variable "tenant_name" {
+  type        = string
+  description = "BigIP F5 Partition"
+  default     = "Common"
+}
+
 variable "pool_name" {
   type        = string
   description = "BigIP Pool 名稱"
