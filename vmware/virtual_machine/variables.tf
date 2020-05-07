@@ -19,7 +19,7 @@ variable "time_zone" {
 
 variable "dns_servers" {
   type    = "list"
-  default = ["192.168.101.10", "192.168.101.199", "168.95.1.1", "8.8.4.4", "8.8.8.8"]
+  default = ["168.95.1.1", "8.8.8.8"]
 }
 
 variable "machines" {
