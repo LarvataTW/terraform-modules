@@ -1,12 +1,3 @@
-### Virtual Machines Folder
-
-resource "vsphere_folder" "folder" {
-  count         = "${var.folder_creating ? 1 : 0}"
-  path          = "${var.folder_path}"
-  type          = "${var.folder_type}"
-  datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
-}
-
 ### Virtual Machines
 
 resource "vsphere_virtual_machine" "virtual_machine" {
@@ -20,7 +11,7 @@ resource "vsphere_virtual_machine" "virtual_machine" {
   datastore_id     = data.vsphere_datastore.datastores[each.key].id
   guest_id         = data.vsphere_virtual_machine.templates[each.key].guest_id
   scsi_type        = data.vsphere_virtual_machine.templates[each.key].scsi_type
-  folder           = "${var.folder_path}"
+  folder           = var.folder
 
   network_interface {
     network_id   = data.vsphere_network.networks[each.key].id
