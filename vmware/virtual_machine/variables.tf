@@ -2,7 +2,7 @@ variable "datacenter" {}
 variable "resource_pool" {}
 
 variable "folder" {
-  default     = string
+  type        = string
   description = "VMware folder 的絕對路徑"
 }
 
@@ -16,12 +16,12 @@ variable "time_zone" {
 }
 
 variable "dns_servers" {
-  type    = "list"
+  type    = list
   default = ["168.95.1.1", "8.8.8.8"]
 }
 
 variable "machines" {
-  type        = "map"
+  type        = map
   description = "主機屬性列表，每組 {} 內定義主機各個屬性"
   default = {
     vm_name = {
