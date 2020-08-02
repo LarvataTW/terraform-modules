@@ -1,11 +1,9 @@
 variable "datacenter" {}
 variable "resource_pool" {}
-variable "folder_path" {}
-variable "folder_type" {}
 
-variable "folder_creating" {
-  default     = false
-  description = "決定是否建立 VM 目錄"
+variable "folder" {
+  default     = string
+  description = "VMware folder 的絕對路徑"
 }
 
 variable "linked_clone" {
