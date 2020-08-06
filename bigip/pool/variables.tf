@@ -50,5 +50,6 @@ variable "virtual_server" {
       description = ""
       destination = ""
       port        = 8080
-  }
+    }
+  }    
 }  
