@@ -43,8 +43,9 @@ resource "bigip_ltm_virtual_server" "vs" {
   for_each    = var.virtual_server
   pool        = var.bigip_ltm_pool.pool.name
   name        = "/${var.tenant_name}/${each.key}"
-  destination = ${each.value.destinaton}
-  port        = ${each.value.port}
+  description = "$(each.value.description)"
+  destination = "${each.value.destinaton}"
+  port        = "${each.value.port}"
   depends_on  = [
     bigip_ltm_node.nodes,
     bigip_ltm_pool.pool,

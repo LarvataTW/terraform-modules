@@ -43,10 +43,12 @@ variable "virtual_server" {
   default = {
     pool1 = {
       description = ""
+      destination = ""
       port        = 80
     }
     pool2 = {
       description = ""
+      destination = ""
       port        = 8080
   }
 }  
