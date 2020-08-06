@@ -36,3 +36,17 @@ variable "nodes" {
     }
   }
 }
+
+variable "virtual_server" {
+  type        = map
+  description = "BigIP Virtual_Server 設定值"
+  default = {
+    pool1 = {
+      description = ""
+      port        = 80
+    }
+    pool2 = {
+      description = ""
+      port        = 8080
+  }
+}  
