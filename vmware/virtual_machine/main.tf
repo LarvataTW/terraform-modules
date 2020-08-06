@@ -7,7 +7,7 @@ resource "vsphere_virtual_machine" "virtual_machine" {
   num_cpus = each.value.num_cpus
   memory   = each.value.memory
 
-  resource_pool_id = "${data.vsphere_resource_pool.pool.id}"
+  resource_pool_id = data.vsphere_resource_pool.pool.id
   datastore_id     = data.vsphere_datastore.datastores[each.key].id
   guest_id         = data.vsphere_virtual_machine.templates[each.key].guest_id
   scsi_type        = data.vsphere_virtual_machine.templates[each.key].scsi_type
@@ -27,7 +27,7 @@ resource "vsphere_virtual_machine" "virtual_machine" {
 
   clone {
     template_uuid = data.vsphere_virtual_machine.templates[each.key].id
-    linked_clone  = "${var.linked_clone}"
+    linked_clone  = var.linked_clone
 
     customize {
       linux_options {
