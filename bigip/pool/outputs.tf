@@ -3,7 +3,7 @@ output "bigip_nodes" {
   value       = values(bigip_ltm_node.nodes)[*]
 }
 
-output "bigip_pool" {
-  description = "建立出來的 Pool"
-  value       = values(bigip_ltm_pool.pool)[*]
-}
+#output "bigip_pool" {
+#  description = "建立出來的 Pool"
+#  value       = values(bigip_ltm_pool.pool)[*]
+#}
