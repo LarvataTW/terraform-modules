@@ -36,19 +36,3 @@ resource "bigip_ltm_pool_attachment" "node-pool-attach" {
     bigip_ltm_pool.pool
   ]
 }
-
-### Virtual_server 
-
-resource "bigip_ltm_virtual_server" "vs" {
-  for_each    = var.virtual_server
-  pool        = bigip_ltm_pool.pool.name
-  name        = "/${var.tenant_name}/${each.key}"
-  description = "${each.value.description}"
-  destination = "${each.value.destination}"
-  port        = "${each.value.port}"
-  depends_on  = [
-    bigip_ltm_node.nodes,
-    bigip_ltm_pool.pool,
-    bigip_ltm_pool_attachment.node-pool-attach
-  ]
-}
