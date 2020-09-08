@@ -7,6 +7,10 @@ resource "vsphere_virtual_machine" "virtual_machine" {
   num_cpus = each.value.num_cpus
   memory   = each.value.memory
 
+  cpu_hot_add_enabled    = true
+  cpu_hot_remove_enabled = true
+  memory_hot_add_enabled = true
+
   resource_pool_id = data.vsphere_resource_pool.pool.id
   datastore_id     = data.vsphere_datastore.datastores[each.key].id
   guest_id         = data.vsphere_virtual_machine.templates[each.key].guest_id
