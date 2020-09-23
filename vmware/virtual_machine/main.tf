@@ -27,7 +27,19 @@ resource "vsphere_virtual_machine" "virtual_machine" {
     size             = each.value.disk_size != "" ? each.value.disk_size : data.vsphere_virtual_machine.templates[each.key].disks.0.size
     thin_provisioned = var.linked_clone == "true" ? data.vsphere_virtual_machine.templates[each.key].disks.0.thin_provisioned : true
     eagerly_scrub    = var.linked_clone == "true" ? data.vsphere_virtual_machine.templates[each.key].disks.0.eagerly_scrub : false
+    unit_number      = "disk0"
   }
+
+  dynamic "disk" {
+    for_each = var.vm_data_disks
+    content {
+      label            = "${each.key}"
+      size             = disk.value["size"]
+      datastore_id     = data.vsphere_datastore.datastores[each.key].id
+      thin_provisioned = true
+      unit_number      = "each.key"
+    }
+  }  
 
   clone {
     template_uuid = data.vsphere_virtual_machine.templates[each.key].id
