@@ -9,9 +9,10 @@ resource "aws_iam_group" "_groups" {
 ### Users
 
 resource "aws_iam_user" "_users" {
-  for_each = var.users
-  path     = var.users_path
-  name     = each.key
+  for_each      = var.users
+  path          = var.users_path
+  name          = each.key
+  force_destroy = true
 }
 
 resource "aws_iam_user_group_membership" "_user_teams" {
@@ -58,6 +59,20 @@ resource "aws_iam_policy_attachment" "_policy_teams" {
   policy_arn = aws_iam_policy._policies[each.key].arn
   groups     = [each.value.group]
   name       = "attachment_${each.key}"
+
+  depends_on = [
+    aws_iam_group._groups,
+    aws_iam_user._users,
+    aws_iam_policy._policies,
+  ]
+}
+
+### Access_key
+
+resource "aws_iam_access_key" "_access_key" {
+  for_each  = toset(var.users_has_key)
+  user      = each.key
+  pgp_key   = var.pgp_key
 
   depends_on = [
     aws_iam_group._groups,
