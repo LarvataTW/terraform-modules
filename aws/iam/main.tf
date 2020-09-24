@@ -70,7 +70,7 @@ resource "aws_iam_policy_attachment" "_policy_teams" {
 ### Access_key
 
 resource "aws_iam_access_key" "_access_key" {
-  for_each  = var.users_has_key
+  for_each  = toset(var.users_has_key)
   user      = each.key
   pgp_key   = var.pgp_key
 
