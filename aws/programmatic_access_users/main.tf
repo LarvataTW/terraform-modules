@@ -48,7 +48,6 @@ resource "aws_iam_policy_attachment" "_policy_teams" {
     aws_iam_policy._policies,
   ]
 }
-
 ### Access_key
 
 resource "aws_iam_access_key" "_access_key" {
