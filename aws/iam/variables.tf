@@ -51,5 +51,5 @@ variable "pgp_key" {
 variable "users_has_key" {
   type        = list
   description = "AWS IAM User配置Key"
-  default     = ["User1","User2","User3"]
+  default     = []
 }
