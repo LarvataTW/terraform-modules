@@ -39,7 +39,7 @@ resource "aws_iam_policy" "_policies" {
 resource "aws_iam_policy_attachment" "_policy_teams" {
   for_each   = var.policies
   policy_arn = aws_iam_policy._policies[each.key].arn
-  groups     = [each.value.group]
+  users      = [each.value.user]
   name       = "attachment_${each.key}"
 
   depends_on = [

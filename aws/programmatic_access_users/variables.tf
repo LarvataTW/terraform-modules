@@ -38,7 +38,7 @@ variable "policies" {
     policy_name = {
       policy_json = "Policy 的 JSON 定義"
       description = "Policy 描述"
-      group       = "Policy 所屬於的 IAM Group"
+      user        = "Policy 所屬於的 IAM Group"
     }
   }
 }
