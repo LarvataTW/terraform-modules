@@ -1,23 +1,23 @@
 resource "dns_a_record_set" "a_record" {
-  for_each  = local.a_records
-  zone      = local.zone
+  for_each  = var.a_records
+  zone      = var.zone
   name      = each.key
   addresses = each.value.ip
-  ttl       = local.ttl
+  ttl       = var.ttl
 }
 
 resource "dns_aaaa_record_set" "aaaa_record" {
-  for_each  = local.aaaa_records
-  zone      = local.zone
+  for_each  = var.aaaa_records
+  zone      = var.zone
   name      = each.key
   addresses = each.value.ip
-  ttl       = local.ttl
+  ttl       = var.ttl
 }
 
 resource "dns_cname_record" "cname" {
-  for_each = local.cnames
-  zone     = local.zone
+  for_each = var.cnames
+  zone     = var.zone
   name     = each.key
   cname    = format("%s.%s", each.value, local.zone)
-  ttl      = local.ttl
+  ttl      = var.ttl
 }
