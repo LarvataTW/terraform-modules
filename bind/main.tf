@@ -18,6 +18,6 @@ resource "dns_cname_record" "cname" {
   for_each = var.cnames
   zone     = var.zone
   name     = each.key
-  cname    = format("%s.%s", each.value, local.zone)
+  cname    = format("%s.%s", each.value, var.zone)
   ttl      = var.ttl
 }
