@@ -15,9 +15,10 @@ resource "dns_aaaa_record_set" "aaaa_record" {
 }
 
 resource "dns_cname_record" "cname" {
-  for_each = var.cnames
-  zone     = var.zone
-  name     = each.key
-  cname    = format("%s.%s", each.value, var.zone)
-  ttl      = var.ttl
+  for_each   = var.cnames
+  zone       = var.zone
+  name       = each.key
+  cname      = format("%s.%s", each.value, var.zone)
+  ttl        = var.ttl
+  depends_on = [dns_a_record_set.a_record, dns_aaaa_record_set.aaaa_record]
 }
