@@ -1,10 +1,19 @@
+terraform {
+  required_providers {
+    bigip = {
+      source = "registry.terraform.io/f5networks/bigip"
+    }
+  }
+  required_version = ">= 0.13"
+}
+
 ### Nodes
 
 resource "bigip_ltm_node" "nodes" {
   for_each         = var.nodes
   name             = "/${var.tenant_name}/${each.key}"
-  address          = "${each.value.address}"
-  description      = "${each.value.description}"
+  address          = each.value.address
+  description      = each.value.description
   connection_limit = "0"
   dynamic_ratio    = "1"
   rate_limit       = "disabled"
@@ -18,8 +27,8 @@ resource "bigip_ltm_node" "nodes" {
 
 resource "bigip_ltm_pool" "pool" {
   name                = "/${var.tenant_name}/${var.pool_name}"
-  load_balancing_mode = "${var.pool_mode}"
-  description         = "${var.pool_description}"
+  load_balancing_mode = var.pool_mode
+  description         = var.pool_description
   monitors            = ["/Common/gateway_icmp"]
   allow_snat          = "yes"
   allow_nat           = "yes"
