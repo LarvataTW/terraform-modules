@@ -11,7 +11,7 @@ terraform {
 
 resource "bigip_ltm_node" "nodes" {
   for_each         = var.nodes
-  name             = "/${var.tenant_name}/${each.key}"
+  name             = "/${var.tenant_name}/${each.value.name}"
   address          = each.value.address
   description      = each.value.description
   connection_limit = "0"

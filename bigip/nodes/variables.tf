@@ -6,13 +6,15 @@ variable "tenant_name" {
 
 variable "nodes" {
   type        = map(any)
-  description = "Node Description"
+  description = "BigIP F5 Nodes"
   default = {
-    node1 = {
+    key1 = {
+      name        = "node1"
       address     = "192.168.0.1"
       description = ""
     }
-    node2 = {
+    key2 = {
+      name        = "node2"
       address     = "192.168.0.2"
       description = ""
     }
