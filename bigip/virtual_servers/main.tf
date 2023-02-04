@@ -26,8 +26,8 @@ locals {
 
 ### Virtual Server
 
-resource "bigip_ltm_virtual_server" "vs" {
-  for_each    = { for entry in local.node_pools : "${entry.node}.${entry.pool}" => entry }
+resource "bigip_ltm_virtual_server" "virtual_servers" {
+  for_each    = { for entry in local.pool_virtual_servers : "${entry.pool}.${entry.virtual_server}" => entry }
   name        = "/${var.tenant_name}/${each.value.virtual_server}"
   description = each.value.description
   destination = each.value.destination
