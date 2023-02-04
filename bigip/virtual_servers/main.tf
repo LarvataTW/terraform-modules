@@ -15,5 +15,5 @@ resource "bigip_ltm_virtual_server" "virtual_servers" {
   description = each.value.description
   destination = each.value.destination
   port        = var.pools["${each.value.default_pool}"].port
-  pool        = "/${var.tenant_name}/${var.pools["${each.value.default_pool}"].port}"
+  pool        = "/${var.tenant_name}/${var.pools["${each.value.default_pool}"].name}"
 }
