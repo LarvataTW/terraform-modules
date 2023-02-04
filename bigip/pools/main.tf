@@ -37,10 +37,8 @@ resource "bigip_ltm_pool" "pools" {
 ### Attach Nodes to a Pool
 
 resource "bigip_ltm_pool_attachment" "node-pool-attach" {
-  for_each = { for entry in local.node_pools : "${entry.node}.${entry.pool}" => entry }
-  pool     = each.value.pool
-  node     = "/${var.tenant_name}/${each.value.node}:${each.value.port}"
-  depends_on = [
-    bigip_ltm_pool.pools
-  ]
+  for_each   = { for entry in local.node_pools : "${entry.node}.${entry.pool}" => entry }
+  pool       = "/${var.tenent_name}/${each.value.pool}"
+  node       = "/${var.tenant_name}/${each.value.node}:${each.value.port}"
+  depends_on = [bigip_ltm_pool.pools]
 }
