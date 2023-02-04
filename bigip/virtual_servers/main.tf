@@ -7,30 +7,13 @@ terraform {
   required_version = ">= 0.13"
 }
 
-### Local variables
-### https://www.daveperrett.com/articles/2021/08/19/nested-for-each-with-terraform/
-
-locals {
-  pool_virtual_servers = distinct(flatten([
-    for pool in var.pools : [
-      for virtual_server in var.virtual_servers : {
-        pool           = pool.name
-        port           = pool.port
-        virtual_server = virtual_server.name
-        destination    = virtual_server.destination
-        description    = virtual_server.description
-      }
-    ]
-  ]))
-}
-
 ### Virtual Server
 
 resource "bigip_ltm_virtual_server" "virtual_servers" {
-  for_each    = { for entry in local.pool_virtual_servers : "${entry.pool}.${entry.virtual_server}" => entry }
-  name        = "/${var.tenant_name}/${each.value.virtual_server}"
+  for_each    = var.virtual_servers
+  name        = "/${var.tenant_name}/${each.value.name}"
   description = each.value.description
   destination = each.value.destination
-  port        = each.value.port
-  pool        = "/${var.tenant_name}/${each.value.pool}"
+  port        = var.pools["${each.value.default_pool}"].port
+  pool        = "/${var.tenant_name}/${var.pools["${each.value.default_pool}"].pool}"
 }
